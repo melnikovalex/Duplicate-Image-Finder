@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import uuid
 import numpy as np
 from PIL import Image
+from pillow_heif import register_heif_opener
 from distutils.util import strtobool
 import os
 import time
@@ -65,6 +66,8 @@ class dif:
         self.delete, self.silent_del = _validate._delete(delete, silent_del)
         self.logs = _validate._logs(logs)
         start_time = time.time()
+
+        register_heif_opener()
 
         self.result, self.lower_quality, total_count, duplicate_count, similar_count, invalid_files, skipped_files = dif._run(self)  # run algorithm
 
@@ -407,7 +410,7 @@ class _help:
     
     def _filter_extensions(directory_files):
         # function that filters files into those with & without valid image extensions
-        valid_extensions = ('.apng', '.bw', '.cdf', '.cur', '.dcx', '.dds', '.dib', '.emf', '.eps', '.fli', '.flc', '.fpx', '.ftex', '.fits', '.gd', '.gd2', '.gif', '.gbr', '.icb', '.icns', '.iim', '.ico', '.im', '.imt', '.j2k', '.jfif', '.jfi', '.jif', '.jp2', '.jpe', '.jpeg', '.jpg', '.jpm', '.jpf', '.jpx', '.jpeg', '.mic', '.mpo', '.msp', '.nc', '.pbm', '.pcd', '.pcx', '.pgm', '.png', '.ppm', '.psd', '.pixar', '.ras', '.rgb', '.rgba', '.sgi', '.spi', '.spider', '.sun', '.tga', '.tif', '.tiff', '.vda', '.vst', '.wal', '.webp', '.xbm', '.xpm')
+        valid_extensions = ('.apng', '.bw', '.cdf', '.cur', '.dcx', '.dds', '.dib', '.emf', '.eps', '.fli', '.flc', '.fpx', '.ftex', '.fits', '.gd', '.gd2', '.gif', '.gbr', '.heif', '.heic', '.icb', '.icns', '.iim', '.ico', '.im', '.imt', '.j2k', '.jfif', '.jfi', '.jif', '.jp2', '.jpe', '.jpeg', '.jpg', '.jpm', '.jpf', '.jpx', '.jpeg', '.mic', '.mpo', '.msp', '.nc', '.pbm', '.pcd', '.pcx', '.pgm', '.png', '.ppm', '.psd', '.pixar', '.ras', '.rgb', '.rgba', '.sgi', '.spi', '.spider', '.sun', '.tga', '.tif', '.tiff', '.vda', '.vst', '.wal', '.webp', '.xbm', '.xpm')
         filtered_list = []
         skipped_list = []
         for f in directory_files:
